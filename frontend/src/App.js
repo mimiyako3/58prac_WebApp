@@ -1,9 +1,10 @@
 import './App.css';
+import Timeline from './timeline/Timeline';
 
 function App() {
   return (
-    <h1>Hello World</h1>
-  );
-}
-
+  <>
+  <Timeline/>
+  </>
+)}
 export default App;
