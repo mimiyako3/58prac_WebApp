@@ -9,12 +9,12 @@ import { useState } from 'react';
 // uuidインストールする
 import { v4 as uuidv4} from 'uuid'
 import TodoList from './TodoList';
+import Post_PopUp from '../Post_PopUp';
 
 export default function AllTodo() {
   //入力されているタスク
   const [todoText, setTodoText] = useState("");
-  const todoList = [];
-  const [todos, setTodos] = useState(todoList);
+  const [todos, setTodos] = useState([]);
   const addTodo = (e) => {
     e.preventDefault();
     if(!todoText) return 
@@ -41,6 +41,7 @@ export default function AllTodo() {
       <p>todo一覧</p>
       <TodoList todos={todos} setTodos={setTodos}/>
     </div>
+    <Post_PopUp todos={todos}/>
    </>
   )
 }

@@ -12,11 +12,15 @@ export default function TodoList({ todos, setTodos }) {
     <>
         {todos.map(todo => {
           return (
-              <label key={todo.id}>
+            <div key={todo.id}>
+              <label>
                 <CheckBox todos={todos} setTodos={setTodos} todo={todo}/>
-                <span>{todo.content}</span>
+                <span>{todo.content + `\n`}</span>
                 <br/>
               </label>
+              <br/>
+            </div>
+              
             )
           }
         )}
