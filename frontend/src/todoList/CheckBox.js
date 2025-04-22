@@ -5,8 +5,20 @@
 
 import React from 'react'
 
-export default function CheckBox() {
+export default function CheckBox({ todos, setTodos, todo }) {
+  //チェックボックスが押されたときに実行される関数
+  const handleChange = id => {
+    const newTodo = todos.map(todo => 
+      todo.id === id ? { ...todo, done: !todo.done } : todo
+    )
+    
+    setTodos(newTodo);
+  }
   return (
-    <div>CheckBox</div>
+    <input
+      type='checkbox'
+      value={todo.content}
+      onChange={() => handleChange(todo.id)}
+    />
   )
 }
