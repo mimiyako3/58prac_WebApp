@@ -21,7 +21,7 @@ export default function Header() {
           <Nav className="me-auto">
             <Nav.Link href='/'  >タイムライン</Nav.Link>
             <Nav.Link href='/todo' >todo+投稿</Nav.Link> 
-            <Nav.Link ahref='/home' >自分の投稿</Nav.Link> 
+            <Nav.Link href='/home' >自分の投稿</Nav.Link> 
             <Nav.Link href='/start' >スタート</Nav.Link> 
           </Nav>
         </Navbar.Collapse>
