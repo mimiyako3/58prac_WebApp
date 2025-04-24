@@ -5,27 +5,30 @@
 
 
 
-import React from 'react'
+
 
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
+
 import Navbar from 'react-bootstrap/Navbar';
+// import Sidebar from './Sidebar';
+// import Button from 'react-bootstrap/Button';
+
+import './Header.css';
+import Sidebar from './Sidebar';
 
 export default function Header() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="/">Todo×SNS</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href='/'  >タイムライン</Nav.Link>
-            <Nav.Link href='/todo' >todo+投稿</Nav.Link> 
-            <Nav.Link href='/home' >自分の投稿</Nav.Link> 
-            <Nav.Link href='/start' >スタート</Nav.Link> 
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <>
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container>
+          <div style={{  alignItems: 'center' }}>
+            <Sidebar />
+
+          </div>
+          <Navbar.Brand href="/">Todo×SNS</Navbar.Brand>
+        </Container>
+
+      </Navbar>
+    </>
   )
 }

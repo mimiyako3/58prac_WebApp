@@ -1,13 +1,15 @@
 /**
  * メニューを開閉するボタンの作成
- * @author 花子
+ * @author kosei
  */
 
 
 import React from 'react'
 
+import Navbar from 'react-bootstrap/Navbar';
+
 export default function ToggleButton() {
   return (
-    <div>ToggleButton</div>
+    <Navbar.Toggle/>
   )
 }

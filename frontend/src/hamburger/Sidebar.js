@@ -1,14 +1,26 @@
 
 /**
  * ハンバーガーメニューが押された際のサイドバーを表示するクラス
- * @author 近代花子
+ * @author kosei
  */
 
 import React from 'react'
 
+import './Sidebar.css'
+import SidebarData from './SidebarData'
+
+
 function Sidebar() {
   return (
-    <div>Sidebar</div>
+    <>
+      <input type="checkbox" id="menu" />
+      <label htmlFor="menu" className="menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      <SidebarData />
+    </>
   )
 }
 
