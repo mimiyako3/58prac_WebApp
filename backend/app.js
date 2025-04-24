@@ -11,7 +11,7 @@ app.use(cors());
 //JSONの受け取り
 app.use(express.json());
 
-
+//MySQLとの繋ぎ合わせ
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -19,11 +19,12 @@ const connection = mysql.createConnection({
     database: process.env.DB_NAME
 });
 
+//デバック用
 console.log(process.env.DB_HOST);
 console.log(process.env.DB_USER);
 
 
-
+//繋がってるかのチェック
 connection.connect((err) => {
     if (err) {
       console.log("エラー:"+ err);
@@ -33,14 +34,13 @@ connection.connect((err) => {
   });
 
 
-
-  
+//投稿を受け取ってDBに追加する 
 app.post("/sendPost",(req,res)=>{
     console.log(req.body);
-    const addName = req.body.name;
-    const addPost = req.body.post;
-    const query = "INSERT INTO allPosts(name, post) VALUES(?,?)";
-    connection.query(query,[addName, addPost],(err,result)=>{
+    const addPostUserName = req.body.name;
+    const addPostContent = req.body.post;
+    const query = "INSERT INTO allPosts(postUserName, postContent) VALUES(?,?)";
+    connection.query(query,[addPostUserName, addPostContent],(err,result)=>{
         if(err){
             console.log(err);
             res.status(500).send({err:"投稿できませんでした"});
@@ -52,7 +52,7 @@ app.post("/sendPost",(req,res)=>{
 });
 
 
-
+//全ての投稿をゲットする
 app.get("/allPosts",(req,res)=>{
     connection.query("SELECT * FROM allPosts", (err, result)=>{
         if(err){
@@ -62,12 +62,45 @@ app.get("/allPosts",(req,res)=>{
             res.status(200).json(result);
             console.log(result);
         }
-       
-
     });
 
 });
 
+// //いいねを押した時にDBに追加する
+// app.post("/addLikePost",(req,res)=>{
+//     console.log(req.body);
+//     const addPostId = req.body.id;
+//     const addName = req.body.name;
+//     const query = "INSERT INTO allLikePosts(post_id, name) VALUES(?,?)";
+//     connection.query(query,[addPostId, addName],(err,result)=>{
+//         if(err){
+//             console.log(err);
+//             res.status(500).send({err:"いいねリストに追加できませんでした"});
+//         }else{
+//             res.status(200).json({message:"いいねリストに追加できました！"});
+//             console.log(result);
+//         }
+//     })
+
+// });
+
+// //いいね一覧の取得
+// app.get("/allLikePosts",(req,res)=>{
+//     connection.query("SELECT * FROM allLikePosts", (err, result)=>{
+//         if(err){
+//             console.log(err);
+//             res.status(500).send({err:"いいねリストに追加できませんでした"});
+//         }else{
+//             res.status(200).json(result);
+//             console.log(result);
+//         }
+//     });
+
+// });
+
+
+
+//サーバーの起動
 app.listen(PORT,(req,res)=>{
     console.log("surver running!");
 });
