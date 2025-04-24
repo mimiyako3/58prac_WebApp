@@ -5,7 +5,7 @@
 
 import React from 'react'
 import './Timeline.css';
-import Like_button from './Like_button';
+import Like_button from './Like_button.js';
 
 const PostsData = [
   {

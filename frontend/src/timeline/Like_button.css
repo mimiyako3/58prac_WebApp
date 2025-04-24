@@ -1,8 +1,7 @@
 .btn {
-    text-align: center;;
-    align-items: center;
-    width: 50%; /*画面の90%の大きさ*/
-    max-width: 1120px; /*最大でも1120*/
+    width: 50%;
+    max-width: 1120px;
+     
     
   }
   
