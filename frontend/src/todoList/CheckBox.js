@@ -1,6 +1,6 @@
 /**
  * チェックボックスで完了／未完了を切り替える
- * @author 花子
+ * @author kosei
  */
 
 import React from 'react'

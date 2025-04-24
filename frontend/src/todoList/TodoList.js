@@ -1,6 +1,6 @@
 /**
  * 全体の状態管理や見た目の定義
- * @author 花子
+ * @author kosei
  */
 
 import React from 'react'
