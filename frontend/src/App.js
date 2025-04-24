@@ -1,4 +1,6 @@
 import './App.css';
+import AllTodo from './todoList/AllTodo';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import AllTodo from './todoList/AllTodo';
