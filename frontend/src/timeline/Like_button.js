@@ -1,14 +1,23 @@
 /**
  * いいねボタン作成
- * @author 花子
+ * @author 若菜
  */
 
-import React from 'react'
+import React from 'react';
+import {useState} from "react";
+import './Like_button.css'
 
 export default function Like_button() {
+  
+  const [liked, setLiked] = useState(false);
+  const toggleLiked = () => setLiked(!liked);
+
+  
   return (
-    <div>
-    </div>
+   <>
+    <button className = {liked ? "btn red" : "btn blue"}
+      onClick = {() => {toggleLiked()}}>いいね</button>
+   </>
   )
 }
 
