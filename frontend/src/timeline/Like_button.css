@@ -2,20 +2,20 @@
   .button-container {
     width: 100%;
     text-align: right; /* ここで右寄せ */
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 10px; /*上幅あける*/
+    margin-bottom: 10px; /*下幅あける*/
     
   }
 
   .btn{
-    border: none;
+    border: none; /*外枠なくす*/
   }
   
   .red {
-    background-color: pink;
+    background-color: pink; /*色*/
   }
   
   .blue {
-    background-color: white;
+    background-color: white; /*色*/
   }
   
