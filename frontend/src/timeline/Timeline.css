@@ -10,7 +10,6 @@
 .timeline-container {
     width: 50%; /*画面の90%の大きさ*/
     max-width: 1120px; /*最大でも1120*/
-    /* background-color: green; */
     margin: 0 auto; /*中央揃え */
     position: relative;
   }

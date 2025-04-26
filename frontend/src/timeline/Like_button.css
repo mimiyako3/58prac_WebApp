@@ -1,8 +1,14 @@
-.btn {
-    width: 50%;
-    max-width: 1120px;
-     
+
+  .button-container {
+    width: 100%;
+    text-align: right; /* ここで右寄せ */
+    margin-top: 10px;
+    margin-bottom: 10px;
     
+  }
+
+  .btn{
+    border: none;
   }
   
   .red {

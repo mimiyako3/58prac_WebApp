@@ -15,8 +15,10 @@ export default function Like_button() {
   
   return (
    <>
-    <button className = {liked ? "btn red" : "btn blue"}
+    <div className="button-container">
+      <button className = {liked ? "btn red" : "btn blue"}
       onClick = {() => {toggleLiked()}}>いいね</button>
+    </div>
    </>
   )
 }
