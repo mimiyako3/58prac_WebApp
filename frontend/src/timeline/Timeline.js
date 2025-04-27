@@ -6,6 +6,7 @@
 import React from 'react'
 import './Timeline.css';
 import Like_button from './Like_button.js';
+import PostContent from './PostContent.js';
 
 // 投稿データのサンプル
 const PostsData = [
@@ -43,10 +44,11 @@ export default function Timeline() {
     <h1 className="timeline-title kiwi-maru-medium">みんなの投稿</h1>
 
       {/* 投稿のデータをマッピングして表示 */}
-      {PostsData.map((post) => (
-        <div key={post.id} className='post kiwi-maru-medium'>
-          <h2 id="postName">{post.name}さん</h2>
-          <p id="postContents">{post.content}</p>
+      {PostsData.map((postdata) => (
+        <div key={postdata.id} className='post kiwi-maru-medium'>
+
+          {/* 投稿内容 */}
+          <PostContent postdata={postdata}/>
 
           {/* いいねボタン */}
           <Like_button />
