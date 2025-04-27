@@ -1,11 +1,11 @@
 import './App.css';
-import Timeline from './timeline/Timeline';
-import Like_button from './timeline/Like_button';
+// import Timeline from './timeline/Timeline';
+import Likes from './timeline/Likes'
 
 function App() {
   return (
   <>
-  <Timeline/>
+  <Likes/>
   </>
 )}
 export default App;
