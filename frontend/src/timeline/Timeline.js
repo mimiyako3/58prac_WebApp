@@ -9,7 +9,7 @@ import Like_button from './Like_button.js';
 import PostContent from './PostContent.js';
 
 // 投稿データのサンプル
-const PostsData = [
+const allpost = [
   {
     id: 1,
     name: "猫",
@@ -44,7 +44,7 @@ export default function Timeline() {
     <h1 className="timeline-title kiwi-maru-medium">みんなの投稿</h1>
 
       {/* 投稿のデータをマッピングして表示 */}
-      {PostsData.map((postdata) => (
+      {allpost.map((postdata) => (
         <div key={postdata.id} className='post kiwi-maru-medium'>
 
           {/* 投稿内容 */}

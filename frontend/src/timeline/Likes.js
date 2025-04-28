@@ -8,7 +8,7 @@ import './Timeline.css';
 import PostContent from './PostContent.js';
 
 // 投稿データのサンプル
-const PostsData = [
+const allpost = [
   {
     id: 1,
     name: "猫",
@@ -43,7 +43,7 @@ export default function Likes() {
     <h1 className="timeline-title kiwi-maru-medium">いいね一覧</h1>
 
       {/* 投稿のデータをマッピングして表示 */}
-      {PostsData.map((postdata) => (
+      {allpost.map((postdata) => (
         //いいねがついているかどうか
         postdata.fav !== 0 && 
         <div key={postdata.id} className='post kiwi-maru-medium'>
