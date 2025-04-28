@@ -52,7 +52,7 @@ app.post("/sendPost",(req,res)=>{
 });
 
 
-//全ての投稿をゲットする
+//全ての投稿を返す
 app.get("/allPosts",(req,res)=>{
     connection.query("SELECT * FROM allPosts", (err, result)=>{
         if(err){
@@ -66,23 +66,48 @@ app.get("/allPosts",(req,res)=>{
 
 });
 
-// //いいねを押した時にDBに追加する
-// app.post("/addLikePost",(req,res)=>{
-//     console.log(req.body);
-//     const addPostId = req.body.id;
-//     const addName = req.body.name;
-//     const query = "INSERT INTO allLikePosts(post_id, name) VALUES(?,?)";
-//     connection.query(query,[addPostId, addName],(err,result)=>{
-//         if(err){
-//             console.log(err);
-//             res.status(500).send({err:"いいねリストに追加できませんでした"});
-//         }else{
-//             res.status(200).json({message:"いいねリストに追加できました！"});
-//             console.log(result);
-//         }
-//     })
+//いいねを押した際のにDBに追加・削除
+app.post("/addLikePost",(req,res)=>{
+    console.log(req.body);
+    const postId = req.body.id;
+    const name = req.body.name;
+    const query = "SELECT 1 FROM allLikePosts WEHERE allLikePsosts.postId = postId AND allLikePosts.userName = name";
+    const first_query = "SELECT allLikePosts.*, EXISTS ( ? ) AS likes FROM allPosts";
+    const second_query = "INSERT INTO allLikePosts(post_id, name) VALUES(?,?)";
+    connection.query(first_query,[query],(err,result)=>{
+        if(err){
+            console.log(err);
+            res.sendStatus(500).send({err:"いいねの判定ができませんでした"});
+        }else{
+            // res.status(200).json({message:"いいねの判定に成功しました"});
+            console.log(result);
 
-// });
+        };
+    });
+
+    if(liked == false){
+        connection.query(second_query,[postId, name],(err,result)=>{
+            if(err){
+                console.log(err);
+                res.status(500).send({err:"いいねリストに追加できませんでした"});
+            }else{
+                res.status(200).json({message:"いいねリストに追加できました！"});
+                console.log(result);
+            }
+        });
+    }else{
+        connection.query("DELETE FROM allLikePosts WHERE postId = postId AND name = name; ",(err,result)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log("sucsess!");
+                res.status(200).json({message:"いいねの処理が成功しました"});
+            }
+        })
+
+    }
+
+});
 
 // //いいね一覧の取得
 // app.get("/allLikePosts",(req,res)=>{
