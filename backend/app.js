@@ -67,61 +67,60 @@ app.get("/allPosts",(req,res)=>{
 });
 
 //いいねを押した際のにDBに追加・削除
-app.post("/addLikePost",(req,res)=>{
-    console.log(req.body);
+app.post("/addLikePost", (req, res) => {
     const postId = req.body.id;
     const name = req.body.name;
-    const query = "SELECT 1 FROM allLikePosts WEHERE allLikePsosts.postId = postId AND allLikePosts.userName = name";
-    const first_query = "SELECT allLikePosts.*, EXISTS ( ? ) AS likes FROM allPosts";
-    const second_query = "INSERT INTO allLikePosts(post_id, name) VALUES(?,?)";
-    connection.query(first_query,[query],(err,result)=>{
-        if(err){
+
+    // まず、その人が既に「いいね」しているか確認
+    const checkQuery = "SELECT * FROM allLikePosts WHERE post_id = ? AND name = ?";
+
+    connection.query(checkQuery, [postId, name], (err, results) => {
+        if (err) {
             console.log(err);
-            res.sendStatus(500).send({err:"いいねの判定ができませんでした"});
-        }else{
-            // res.status(200).json({message:"いいねの判定に成功しました"});
-            console.log(result);
+            return res.status(500).json({ error: "いいね確認中にエラーが発生しました" });
+        }
 
-        };
+        const liked = results.length > 0;
+
+        if (!liked) {
+            // まだ「いいね」していなければ追加
+            const insertQuery = "INSERT INTO allLikePosts (post_id, name) VALUES (?, ?)";
+            connection.query(insertQuery, [postId, name], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json({ error: "いいねの追加に失敗しました" });
+                }
+                return res.status(200).json({ message: "いいねを追加しました" });
+            });
+        } else {
+            // 既に「いいね」していれば削除
+            const deleteQuery = "DELETE FROM allLikePosts WHERE post_id = ? AND name = ?";
+            connection.query(deleteQuery, [postId, name], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json({ error: "いいねの削除に失敗しました" });
+                }
+                return res.status(200).json({ message: "いいねを取り消しました" });
+            });
+        }
     });
-
-    if(liked == false){
-        connection.query(second_query,[postId, name],(err,result)=>{
-            if(err){
-                console.log(err);
-                res.status(500).send({err:"いいねリストに追加できませんでした"});
-            }else{
-                res.status(200).json({message:"いいねリストに追加できました！"});
-                console.log(result);
-            }
-        });
-    }else{
-        connection.query("DELETE FROM allLikePosts WHERE postId = postId AND name = name; ",(err,result)=>{
-            if(err){
-                console.log(err);
-            }else{
-                console.log("sucsess!");
-                res.status(200).json({message:"いいねの処理が成功しました"});
-            }
-        })
-
-    }
-
 });
 
-// //いいね一覧の取得
-// app.get("/allLikePosts",(req,res)=>{
-//     connection.query("SELECT * FROM allLikePosts", (err, result)=>{
-//         if(err){
-//             console.log(err);
-//             res.status(500).send({err:"いいねリストに追加できませんでした"});
-//         }else{
-//             res.status(200).json(result);
-//             console.log(result);
-//         }
-//     });
+//ユーザーのいいね一覧の取得
+app.post("/allLikePosts",(req,res)=>{
+    const userName = req.body.name;
+    const query = "SELECT * FROM allLikePosts WHERE userName = ?";
+    connection.query(query,[userName] ,(err, result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Error retrieving data from database");
+        }else{
+            res.status(200).json(result);
+            console.log(result);
+        }
+    });
 
-// });
+});
 
 
 
