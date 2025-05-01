@@ -11,6 +11,8 @@ COPY package*.json ./
 # 依存パッケージをインストールする
 RUN npm install
 
+RUN npm install -g nodemon
+
 # 残りのファイル（アプリ本体）を全部コピー
 COPY . .
 

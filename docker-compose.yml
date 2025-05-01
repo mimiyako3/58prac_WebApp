@@ -1,5 +1,5 @@
 # ファイルの形式バージョン
-version: '3.8'
+# version: '3.8'
 
 
 # backend という名前のサービス（＝コンテナ）を定義
@@ -15,6 +15,9 @@ services:
     restart: always
     environment:
       - NODE_ENV=production  # 必要に応じて環境変数を設定（例：Node.jsの場合）
+    env_file:
+      - ./backend/.env  # backend 内の .env を参照
+
 
   frontend:
     build:
@@ -30,9 +33,27 @@ services:
     environment:
       - NODE_ENV=production  # 必要に応じて環境変数を設定
     # 環境変数を使ってバックエンドとフロントエンドが通信できるように設定することができる
-    extra_hosts:
-      - "backend:host.docker.internal"  # バックエンドへのホスト名を明示的に指定
+    # extra_hosts:
+    #   - "backend:host.docker.internal"  # バックエンドへのホスト名を明示的に指定
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    # environment:
+    #   MYSQL_ROOT_PASSWORD: rootpass
+    #   MYSQL_DATABASE: mydb
+    #   MYSQL_USER: devuser
+    #   MYSQL_PASSWORD: devpass
+    env_file:
+      - ./backend/.env 
+    # environment:
+    #  - NODE_ENV=production  # 必要に応じて環境変数を設定
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
 
 volumes:
   backend-data: {}  # バックエンド用のデータボリューム（必要に応じて）
   frontend-data: {}  # フロントエンド用のデータボリューム（必要に応じて）
+  mysql_data: {}
