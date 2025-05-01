@@ -19,6 +19,30 @@ export default function Post_PopUp({ todos }) {
   //done = trueのタスクのみかえす関数
   const isDone = todos.filter((todo) => todo.done === true);
 
+  // 投稿するボタンが押されたときの処理
+  const handlePost = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/???', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ completedTasks: isDone }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send data to the server');
+      }
+
+      const data = await response.json();
+      console.log('Posted data:', data);
+
+      // モーダルを閉じる
+      handleClose();
+    } catch (e) {
+      console.error('Error:', e);
+    }
+  };
 
   return (
     <>
@@ -51,7 +75,7 @@ export default function Post_PopUp({ todos }) {
           <Button variant="secondary" onClick={handleClose}>
             閉じる
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handlePost}>
             投稿する
           </Button>
         </Modal.Footer>
