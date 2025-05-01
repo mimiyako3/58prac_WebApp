@@ -14,7 +14,7 @@ export default function TodoCreateForm({ uuid , todos, setTodos}) {
   const [todoText, setTodoText] = useState("");
 
   //todo追加ボタンが押されたときに実行される関数
-  const addTodo = (e) => {
+  const addTodo = async (e) => {
     //ボタンが押されてもページがリロードされないようにするため
     e.preventDefault();
 
@@ -33,6 +33,27 @@ export default function TodoCreateForm({ uuid , todos, setTodos}) {
     
     //todoTextを空にする
     setTodoText("");
+
+    //バックエンドにPOSTリクエストを送信
+    try {
+      const response = await fetch('http://localhost:8000/todo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newTodo),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add todo');
+      }
+
+      const data = await response.json();
+      console.log('Todo added:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
   }
 
 
