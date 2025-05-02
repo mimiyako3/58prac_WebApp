@@ -4,9 +4,26 @@
  */
 
 import React from 'react'
+import CheckBox from './CheckBox'
 
-export default function TodoList() {
+export default function TodoList({ todos, setTodos }) {
+  
   return (
-    <div>TodoList</div>
-  )
+    <>
+        {todos.map(todo => {
+          return (
+            <div key={todo.id}>
+              <label>
+                <CheckBox todos={todos} setTodos={setTodos} todo={todo}/>
+                <span>{todo.content + `\n`}</span>
+                <br/>
+              </label>
+              <br/>
+            </div>
+              
+            )
+          }
+        )}
+    </>
+      )
 }
