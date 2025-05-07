@@ -7,8 +7,7 @@ import React from 'react'
 
 export default function Like_button() {
   return (
-    <div>
-    </div>
+    <div>Like_button</div>
   )
 }
 
